@@ -17,14 +17,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 use App\Http\Controllers\Admin\NewsController;
-Route::controller(NewsController::class)->prefix('admin')->group(function(){
-    Route::get('news/create', 'add')->middleware('auth');
+Route::controller(NewsController::class)->prefix('admin')->name('admin.')->middleware('auth')->group(function(){
+    Route::get('news/create', 'add')->name('news.add');
+    Route::post('news/create', 'create')->name('news.create');
 });
 
 use App\Http\Controllers\Admin\ProfileController;
-Route::controller(ProfileController::class)->prefix('admin')->group(function(){
-    Route::get('profile/create', 'add')->middleware('auth');
-    Route::get('profile/edit', 'edit')->middleware('auth');
+Route::controller(ProfileController::class)->prefix('admin')->name('admin.')->middleware('auth')->group(function(){
+    Route::get('profile/create', 'add')->name('profile.add');
+    Route::get('profile/edit', 'edit')->name('profile.edit');
+    Route::post('profile/create', 'add')->name('profile.create');
+    Route::post('profile/edit', 'update')->name('profile.edit');
 });
 Auth::routes();
 
