@@ -16,4 +16,9 @@ class Profile extends Model
         'hobby' => 'required',
         'introduction' => 'required',
     );
+    // Profile Modelにlogの関連付け
+    public function logs()
+    {
+        return $this->hasMany('App\Models\Log');
+    }
 }

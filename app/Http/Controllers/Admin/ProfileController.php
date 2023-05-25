@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Profile;
+// Logのために下記追加（LogとCarbon）
+use App\Models\Log;
+
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
@@ -69,6 +73,12 @@ class ProfileController extends Controller
         
         // 該当するデータを上書きして保存する
         $profile->fill($profile_form)->save();
+        
+        //Logを追加
+        $log = new Log();
+        $log->profile_id = $profile->id;
+        $log->edited_at = Carbon::now();
+        $log->save();
         
         return redirect('admin/profile');
     }
